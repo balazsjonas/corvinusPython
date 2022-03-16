@@ -25,7 +25,8 @@ for file in file_names_metro_1:
                       )
     df = pd.concat([df, tmp])
 
-# df.groupby('Time').aggregate(np.mean).plot(kind='box')
-# df.groupby('Time')['CO', 'PM10'].aggregate(np.median)
-df.groupby('Time').aggregate(np.median)[['CO', 'PM10']].plot()  # ?????????
+co = df.groupby('Time').aggregate(np.median)[['CO']]
+
+print(co)
+co.plot()
 plt.show()
