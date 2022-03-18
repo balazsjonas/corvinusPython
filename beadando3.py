@@ -26,7 +26,9 @@ for file in file_names_metro_1:
     df = pd.concat([df, tmp])
 
 df.loc[df['Time'].str.startswith('24:00'), 'Time'] = '00:00'
-df['Hour'] = pd.to_datetime(df['Date'].astype(str) + ' '+ df['Time'].astype(str) + ':00').dt.hour
+df['Time'] = pd.to_datetime(df['Date'].astype(str) + ' '+ df['Time'].astype(str) + ':00')
+df.drop('Date', axis=1, inplace=True)
+df['Hour'] = df['Time'].dt.hour
 co = df.groupby('Hour').aggregate(np.median)[['CO']]
 
 print(co)
